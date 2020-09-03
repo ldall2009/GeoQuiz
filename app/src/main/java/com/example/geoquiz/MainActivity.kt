@@ -224,8 +224,8 @@ class MainActivity : AppCompatActivity() {
              * a count for the number of questions a user correctly answered (counts the number of
              * 'true' in the userAnswers array.
              */
-            val correctAnswers: Int = quizViewModel.userAnswers.count{t -> t}
-            val percentageCorrect: Double = correctAnswers.toDouble()/quizViewModel.userAnswers.size
+            val correctAnswers: Int = quizViewModel.userAnswers.count{ t -> t }
+            val percentageCorrect: Double = (correctAnswers.toDouble()/quizViewModel.userAnswers.size) * 100
             val shortenedPercentage = String.format("%.2f", percentageCorrect)
 
             val toast = Toast.makeText(this, "Your percentage score is: $shortenedPercentage",

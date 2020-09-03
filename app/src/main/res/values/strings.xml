@@ -2,18 +2,15 @@
 
     <string name="app_name">GeoQuiz</string>
 
-    <string name="question_australia">Canberra is the capital of Australia.</string>
-    <string name="question_oceans">The Pacific Ocean is larger than the Atlantic Ocean.</string>
-    <string name="question_mideast">The Suez Canal connects the Red Sea and the Indian Ocean.</string>
-    <string name="question_africa">The source of the Nile River is in Egypt.</string>
-    <string name="question_americas">The Amazon River is the longest river in the Americas.</string>
-    <string name="question_asia">Lake Baikal is the world\'s oldest and deepest freshwater lake.</string>
     <!-- Facts I entered-->
-    <string name="question_continental_shift">Continents shift at about the same rate as your fingernails grow.</string>
-    <string name="question_mt_thor">Mt. Thor on Baffin Island, Canada, has Earth\'s greatest sheer vertical drop.</string>
-    <string name="question_north_hemisphere">Eighty percent of Earth\'s population lives in the Northern Hemisphere.</string>
+    <string name="question_continental_shift">Continents shift at about the same rate as your fingernails grow</string>
+    <string name="question_mt_thor">Mt. Thor on Baffin Island, Canada, has Earth\'s greatest sheer vertical drop</string>
+    <string name="question_north_hemisphere">Eighty percent of Earth\'s population lives in the Northern Hemisphere</string>
     <string name="question_california">California has less people living there than all of Canada</string>
-    <string name="question_dead_sea">The Dead Sea is currently sinking about 1 meter a year.</string>
+    <string name="question_dead_sea">The Dead Sea is currently sinking about 1 meter a year</string>
+    <string name="question_antarctica">Antarctica is the world\'s largest desert</string>
+    <string name="question_russia">Russia is so big it is in 9 different timezones total</string>
+    <string name="question_istanbul">Istanbul is the only city in the world that is spread across two continents</string>
 
     <string name="true_button">True</string>
     <string name="false_button">False</string>

@@ -10,17 +10,14 @@ class QuizViewModel : ViewModel() {
     var isCheater = false
 
     private val questionBank = listOf(
-        Question(R.string.question_australia, true),
-        Question(R.string.question_oceans, true),
-        Question(R.string.question_mideast, false),
-        Question(R.string.question_africa, false),
-        Question(R.string.question_americas, true),
-        Question(R.string.question_asia, true),
         Question(R.string.question_continental_shift, true),
         Question(R.string.question_mt_thor, true),
         Question(R.string.question_north_hemisphere, false),
         Question(R.string.question_california, false),
-        Question(R.string.question_dead_sea, true)
+        Question(R.string.question_dead_sea, true),
+        Question(R.string.question_antarctica, true),
+        Question(R.string.question_russia, false),
+        Question(R.string.question_istanbul, true)
     )
 
     var questionsAnswered = BooleanArray(questionBank.size)
