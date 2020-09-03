@@ -22,6 +22,9 @@ private const val TAG = "MainActivity"
  */
 private const val KEY_INDEX = "index"
 
+//used to determine if a user has answered a particular question yet
+private const val KEY_ANSWERED = "answered"
+
 //used to determine whether the user chose to view the answer
 private const val REQUEST_CODE_CHEAT = 0
 
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cheatButton: Button
     private lateinit var prevButton: ImageButton
     private lateinit var questionTextView: TextView
+
 
     /**
      * A ViewModel is related to one particular screen and is a great place to put logic
@@ -56,13 +60,23 @@ class MainActivity : AppCompatActivity() {
         ViewModelProviders.of(this).get(QuizViewModel::class.java)
     }
 
+    /**
+     * Create a boolean array to keep track of questions that the user has answered.  At creation,
+     * the user has answered no questions, so initialize the array to contain false at each index.
+     */
+    //private var questionsAnswered = BooleanArray(quizViewModel.getQuestionBank().size) //{false}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
         setContentView(R.layout.activity_main)
 
+        //The '?:' operator takes the right-hand value if the left-hand value is null
         val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
+        val questionsAnswered = savedInstanceState?.getBooleanArray(KEY_ANSWERED) ?:
+                BooleanArray(quizViewModel.questionsAnswered.size)
         quizViewModel.currentIndex = currentIndex
+        quizViewModel.questionsAnswered = questionsAnswered
 
         Log.d(TAG, "Got a QuizViewModel: $quizViewModel")
 
@@ -151,6 +165,7 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(savedInstanceState)
         Log.i(TAG, "onSaveInstanceState")
         savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
+        savedInstanceState.putBooleanArray(KEY_ANSWERED, quizViewModel.questionsAnswered)
     }
 
     override fun onStop() {
@@ -166,6 +181,14 @@ class MainActivity : AppCompatActivity() {
     private fun updateQuestion() {
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
+
+        if(!quizViewModel.questionsAnswered[quizViewModel.currentIndex]) {
+            trueButton.isEnabled = true
+            falseButton.isEnabled = true
+        } else {
+            trueButton.isEnabled = false
+            falseButton.isEnabled = false
+        }
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
@@ -176,6 +199,10 @@ class MainActivity : AppCompatActivity() {
             userAnswer == correctAnswer -> R.string.correct_toast
             else -> R.string.incorrect_toast
         }
+
+        quizViewModel.questionsAnswered[quizViewModel.currentIndex] = true
+        trueButton.isEnabled = false
+        falseButton.isEnabled = false
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
     }

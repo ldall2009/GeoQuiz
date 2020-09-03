@@ -2,6 +2,7 @@ package com.example.geoquiz
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import java.util.*
 
 private const val TAG = "QuizViewModel"
 
@@ -23,6 +24,8 @@ class QuizViewModel : ViewModel() {
         Question(R.string.question_california, false),
         Question(R.string.question_dead_sea, true)
     )
+
+    var questionsAnswered = BooleanArray(questionBank.size)
 
     val currentQuestionAnswer: Boolean get() = questionBank[currentIndex].answer
 
