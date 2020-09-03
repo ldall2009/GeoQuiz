@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -23,7 +24,10 @@ private const val TAG = "MainActivity"
 private const val KEY_INDEX = "index"
 
 //used to determine if a user has answered a particular question yet
-private const val KEY_ANSWERED = "answered"
+private const val KEY_QUESTIONS_ANSWERED = "questionAnswered"
+
+//used to determine what the user answered for a particular question
+private const val KEY_USER_ANSWERS = "userAnswers"
 
 //used to determine whether the user chose to view the answer
 private const val REQUEST_CODE_CHEAT = 0
@@ -73,10 +77,13 @@ class MainActivity : AppCompatActivity() {
 
         //The '?:' operator takes the right-hand value if the left-hand value is null
         val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
-        val questionsAnswered = savedInstanceState?.getBooleanArray(KEY_ANSWERED) ?:
-                BooleanArray(quizViewModel.questionsAnswered.size)
+        val questionsAnswered = savedInstanceState?.getBooleanArray(KEY_QUESTIONS_ANSWERED) ?:
+            BooleanArray(quizViewModel.questionsAnswered.size)
+        val userAnswers = savedInstanceState?.getBooleanArray(KEY_USER_ANSWERS) ?:
+            BooleanArray(quizViewModel.userAnswers.size)
         quizViewModel.currentIndex = currentIndex
         quizViewModel.questionsAnswered = questionsAnswered
+        quizViewModel.userAnswers = userAnswers
 
         Log.d(TAG, "Got a QuizViewModel: $quizViewModel")
 
@@ -165,7 +172,8 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(savedInstanceState)
         Log.i(TAG, "onSaveInstanceState")
         savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
-        savedInstanceState.putBooleanArray(KEY_ANSWERED, quizViewModel.questionsAnswered)
+        savedInstanceState.putBooleanArray(KEY_QUESTIONS_ANSWERED, quizViewModel.questionsAnswered)
+        savedInstanceState.putBooleanArray(KEY_USER_ANSWERS, quizViewModel.userAnswers)
     }
 
     override fun onStop() {
@@ -205,6 +213,26 @@ class MainActivity : AppCompatActivity() {
         falseButton.isEnabled = false
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+
+        if (userAnswer == correctAnswer){
+            quizViewModel.userAnswers[quizViewModel.currentIndex] = true
+        }
+
+        //checks if all values in the questionsAnswered boolean array equal true
+        if(quizViewModel.questionsAnswered.all{ t -> t }){
+            /**
+             * a count for the number of questions a user correctly answered (counts the number of
+             * 'true' in the userAnswers array.
+             */
+            val correctAnswers: Int = quizViewModel.userAnswers.count{t -> t}
+            val percentageCorrect: Double = correctAnswers.toDouble()/quizViewModel.userAnswers.size
+            val shortenedPercentage = String.format("%.2f", percentageCorrect)
+
+            val toast = Toast.makeText(this, "Your percentage score is: $shortenedPercentage",
+                Toast.LENGTH_LONG)
+            toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 200)
+            toast.show()
+        }
     }
 
 }
