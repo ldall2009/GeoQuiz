@@ -19,7 +19,7 @@
 
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
-    <string name="percentage_toast">Your percentage score is: </string>
+    <string name="percentage_toast">Your percentage score is: %.2f%%</string>
 
     <string name="warning_text">Are you sure you want to do this?</string>
     <string name="show_answer_button">Show Answer</string>

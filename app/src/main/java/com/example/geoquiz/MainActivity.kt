@@ -32,6 +32,8 @@ private const val KEY_USER_ANSWERS = "userAnswers"
 //used to determine whether the user chose to view the answer
 private const val REQUEST_CODE_CHEAT = 0
 
+private const val Y_OFFSET_PERCENTAGE_TOAST = 200
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var trueButton: Button
@@ -226,11 +228,11 @@ class MainActivity : AppCompatActivity() {
              */
             val correctAnswers: Int = quizViewModel.userAnswers.count{ t -> t }
             val percentageCorrect: Double = (correctAnswers.toDouble()/quizViewModel.userAnswers.size) * 100
-            val shortenedPercentage = String.format("%.2f", percentageCorrect)
+            val toastMessage = getString(R.string.percentage_toast, percentageCorrect)
 
-            val toast = Toast.makeText(this, "Your percentage score is: $shortenedPercentage",
+            val toast = Toast.makeText(this, toastMessage,
                 Toast.LENGTH_LONG)
-            toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 200)
+            toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, Y_OFFSET_PERCENTAGE_TOAST)
             toast.show()
         }
     }
