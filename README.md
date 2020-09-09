@@ -6,7 +6,7 @@ This program was created following the tutorial specified in Chapters 1-6 of *An
 
 Video link of me demoing the app: [GeoQuiz App Demo](https://youtu.be/wgi8auLrWLg)
 
-### The following challenges from Chapters 1-6 from the book were completed:
+### The following bonus challenges from Chapters 1-6 from the book were completed:
 - Add A Previous Button
 - From Button to ImageButton
 - Prevent Repeating Answers
